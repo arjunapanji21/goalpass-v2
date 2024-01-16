@@ -16,15 +16,15 @@
             </div>
         </div>
         <div>
-            <div class="overflow-x-auto bg-base-100 rounded-lg shadow">
-                <table class="table table-compact w-full">
+            <div class="overflow-auto h-[450px] bg-base-100 rounded-lg shadow">
+                <table class="table table-sm w-full">
                     <!-- head -->
-                    <thead>
+                    <thead class="sticky top-0 bg-base-100 shadow">
                         <tr>
                             <th>#</th>
                             <th>Nama Klub</th>
                             <th>Kota/Kabupaten</th>
-                            <th>Tgl. Dibuat</th>
+                            <th>Tgl. Diupdate</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -33,7 +33,7 @@
                             v-for="(klub, index) in master.klub"
                             :key="index"
                         >
-                            <tr class="hover">
+                            <tr>
                                 <th>
                                     {{ index+1 }}
                                 </th>
@@ -45,7 +45,7 @@
                                 </td>
                                 <td>
                                     {{
-                                        moment(klub.created_at).format(
+                                        moment(klub.updated_at).format(
                                             "DD/MM/YYYY"
                                         )
                                     }}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -51,6 +52,12 @@ class AdminAsprovController extends Controller
             $data['kota_kab'] = "ASPROV";
             $data['role'] = "Admin Asprov";
             User::create($data);
+            ActivityLog::create([
+                'ip_add' => $request->ip(),
+                'user' => auth()->user()->nama,
+                'role' => auth()->user()->role,
+                'activity' => "Added '" . $data['nama'] . "' to Data Admin.",
+            ]);
             return redirect(route('admin'));
         } catch (\Throwable $th) {
             dd($th);
@@ -97,8 +104,24 @@ class AdminAsprovController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Request $request, $id)
     {
-        //
+        try {
+            $admin = User::find($id);
+            ActivityLog::create([
+                'ip_add' => $request->ip(),
+                'user' => auth()->user()->nama,
+                'role' => auth()->user()->role,
+                'activity' => "Removed '" . $admin->nama . "' from Data Admin.",
+            ]);
+            $admin->delete();
+            return response()->json([
+                'msg' => 'Admin Asprov Berhasil Dihapus.'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'msg' => $th,
+            ]);
+        }
     }
 }

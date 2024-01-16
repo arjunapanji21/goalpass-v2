@@ -2,13 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\KlubImport;
+use App\Models\ActivityLog;
 use App\Models\Anggota;
 use App\Models\Klub;
 use App\Models\Kota;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KlubController extends Controller
 {
+    public function import(Request $request)
+    {
+        // validasi
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+        // menangkap file excel
+        $file = $request->file('file');
+
+        // // membuat nama file unik
+        // $nama_file = rand() . $file->getClientOriginalName();
+
+        // // upload ke folder file_siswa di dalam folder public
+        // $file->move('file_siswa', $nama_file);
+
+        // import data
+        Excel::import(new KlubImport, $file);
+
+        // // notifikasi dengan session
+        // Session::flash('sukses', 'Data Siswa Berhasil Diimport!');
+
+        // alihkan halaman kembali
+        return redirect(route('klub.index'));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +73,18 @@ class KlubController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $kota = Kota::find($data['kota_id']);
+        $data['kd_kota'] = $kota->kd_kota;
+        $data['kota_kab'] = $kota->nama;
+        Klub::create($data);
+        ActivityLog::create([
+            'ip_add' => $request->ip(),
+            'user' => auth()->user()->nama,
+            'role' => auth()->user()->role,
+            'activity' => "Added '" . $data['nama'] . "' to Data Master Klub",
+        ]);
+        return redirect(route('klub.index'))->with('alert', 'Berhasil Menambahkan Klub Kedalam Database.');
     }
 
     /**

@@ -7,14 +7,16 @@
         </div>
         <div class="divider"></div>
         <div class="block lg:flex gap-2">
-            <div class="card card-compact bg-base-100 w-full lg:w-1/2">
+            <div
+                class="card card-compact bg-base-100 w-full"
+                v-if="auth.user.role == 'Super Admin'"
+            >
                 <div class="card-body">
                     <div class="card-title">
                         Admin Asprov
                         <Link
                             :href="route('asprov.create')"
                             class="btn btn-sm btn-primary btn-circle"
-                            v-if="auth.user.role == 'Super Admin'"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +33,7 @@
                         </Link>
                     </div>
                     <div class="overflow-x-auto">
-                        <table class="table table-compact">
+                        <table class="table table-sm">
                             <!-- head -->
                             <thead>
                                 <tr>
@@ -43,7 +45,7 @@
                             </thead>
                             <tbody>
                                 <template
-                                    v-for="(asprov, index) in master.asprov"
+                                    v-for="(row, index) in master.asprov"
                                     :key="index"
                                 >
                                     <tr>
@@ -56,14 +58,14 @@
                                                     class="mask mask-squircle w-12 h-12"
                                                 >
                                                     <img
-                                                        :src="asprov.foto"
+                                                        :src="row.foto"
                                                         alt="Foto Profil"
                                                     />
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            {{ asprov.nama }}
+                                            {{ row.nama }}
                                         </td>
                                         <td>
                                             <div
@@ -77,7 +79,7 @@
                                                         height="1em"
                                                         viewBox="0 0 512 512"
                                                         fill="currentColor"
-                                                        class="w-5 h-5"
+                                                        class="w-4 h-4"
                                                     >
                                                         <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                                         <path
@@ -86,14 +88,21 @@
                                                     </svg>
                                                 </Link>
                                                 <button
-                                                    class="btn btn-disabled btn-sm btn-square"
+                                                    v-if="
+                                                        auth.user.role ==
+                                                        'Super Admin'
+                                                    "
+                                                    @click="
+                                                        delete_asprov(row.id)
+                                                    "
+                                                    class="btn btn-error btn-sm btn-square btn-outline"
                                                 >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         height="1em"
                                                         viewBox="0 0 448 512"
                                                         fill="currentColor"
-                                                        class="w-5 h-5"
+                                                        class="w-4 h-4"
                                                     >
                                                         <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                                         <path
@@ -110,7 +119,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card card-compact bg-base-100 w-full lg:w-1/2">
+            <div class="card card-compact bg-base-100 w-full">
                 <div class="card-body">
                     <div class="card-title">
                         Admin Askot/Askab
@@ -133,7 +142,7 @@
                         </Link>
                     </div>
                     <div class="overflow-x-auto">
-                        <table class="table table-compact">
+                        <table class="table table-sm">
                             <!-- head -->
                             <thead>
                                 <tr>
@@ -146,7 +155,7 @@
                             </thead>
                             <tbody>
                                 <template
-                                    v-for="(askot, index) in master.askot"
+                                    v-for="(row, index) in master.askot"
                                     :key="index"
                                 >
                                     <tr>
@@ -159,17 +168,17 @@
                                                     class="mask mask-squircle w-12 h-12"
                                                 >
                                                     <img
-                                                        :src="askot.foto"
+                                                        :src="row.foto"
                                                         alt="Foto Profil"
                                                     />
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            {{ askot.nama }}
+                                            {{ row.nama }}
                                         </td>
                                         <td>
-                                            {{ askot.kota_kab }}
+                                            {{ row.kota_kab }}
                                         </td>
                                         <td>
                                             <div
@@ -183,7 +192,7 @@
                                                         height="1em"
                                                         viewBox="0 0 512 512"
                                                         fill="currentColor"
-                                                        class="w-5 h-5"
+                                                        class="w-4 h-4"
                                                     >
                                                         <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                                         <path
@@ -192,14 +201,15 @@
                                                     </svg>
                                                 </Link>
                                                 <button
-                                                    class="btn btn-disabled btn-sm btn-square"
+                                                    @click="delete_askot(row)"
+                                                    class="btn btn-error btn-outline btn-sm btn-square"
                                                 >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         height="1em"
                                                         viewBox="0 0 448 512"
                                                         fill="currentColor"
-                                                        class="w-5 h-5"
+                                                        class="w-4 h-4"
                                                     >
                                                         <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                                         <path
@@ -222,6 +232,7 @@
 <script>
 import moment from "moment";
 import layout from "../superadmin/layout.vue";
+import axios from "axios";
 export default {
     layout: layout,
     props: {
@@ -233,7 +244,24 @@ export default {
             moment,
         };
     },
-    methods: {},
+    methods: {
+        delete_asprov(data) {
+            if (confirm("Hapus Akun Asprov ini?") == true) {
+                axios
+                    .delete(route("asprov.destroy", data))
+                    .then((response) => alert(response.data.msg));
+                location.reload();
+            }
+        },
+        delete_askot(data) {
+            if (confirm("Hapus Akun Askot/Askab ini?") == true) {
+                axios
+                    .delete(route("askot.destroy", data))
+                    .then((response) => alert(response.data.msg));
+                location.reload();
+            }
+        },
+    },
 };
 </script>
 <style lang=""></style>

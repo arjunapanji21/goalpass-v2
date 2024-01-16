@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,6 +25,12 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            ActivityLog::create([
+                'ip_add' => $request->ip(),
+                'user' => auth()->user()->nama,
+                'role' => auth()->user()->role,
+                'activity' => "Logged in to system.",
+            ]);
             return redirect(route('beranda'));
         }
         return back()->with(['error', 'Login failed!']);
@@ -31,6 +38,12 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        ActivityLog::create([
+            'ip_add' => $request->ip(),
+            'user' => auth()->user()->nama,
+            'role' => auth()->user()->role,
+            'activity' => "Logged out from system.",
+        ]);
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

@@ -9,4 +9,9 @@ class Kota extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    public function klub()
+    {
+        return $this->hasMany(Klub::class);
+    }
 }

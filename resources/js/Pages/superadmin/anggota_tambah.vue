@@ -157,7 +157,6 @@
                     <div class="form-control w-full">
                         <label class="label gap-2 justify-start">
                             <span class="label-text">Foto Pemain</span>
-                            <span class="label-text-alt text-error">*</span>
                         </label>
                         <input
                             accept=".jpg"
@@ -177,10 +176,44 @@
                     <button @click="btn_submit()" class="btn btn-primary">
                         Simpan
                     </button>
-                    <Link :href="route('anggota')" class="btn">Batal</Link>
+                    <Link :href="route('anggota.index')" class="btn">Batal</Link>
                 </div>
             </div>
         </div>
+        <template v-if="auth.user.role == 'Super Admin'">
+            <div class="divider">Atau</div>
+            <div class="card card-compact bg-base-100">
+                <div class="card-body">
+                    <div class="card-title">Import Data Anggota</div>
+                    <div class="form-control w-full">
+                        <label class="label gap-2 justify-start">
+                            <span class="label-text">Upload File:</span>
+                            <span class="label-text-alt text-error">*</span>
+                        </label>
+                        <input
+                            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                            id="file"
+                            type="file"
+                            class="file-input file-input-bordered w-full"
+                        />
+                        <label class="label">
+                            <a
+                                class="label-text-alt text-error hover:text-primary font-semibold italic"
+                                >Download template</a
+                            >
+                        </label>
+                    </div>
+                    <div class="card-actions">
+                        <button
+                            @click="btn_upload()"
+                            class="btn btn-primary btn-block"
+                        >
+                            Upload
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
     </div>
 </template>
 <script>
@@ -203,6 +236,7 @@ export default {
             klub: null,
             umur: null,
             foto: null,
+            file: null,
         });
         return { form };
     },
@@ -212,6 +246,15 @@ export default {
                 onSuccess: () => {
                     alert("Berhasil menambahkan anggota baru!");
                 },
+                preserveScroll: true,
+            });
+        },
+        btn_upload() {
+            this.form.file = document.getElementById("file").files[0];
+            this.form.post(route("anggota.import"), {
+                // onSuccess: () => {
+                //     alert("Login Success!");
+                // },
                 preserveScroll: true,
             });
         },

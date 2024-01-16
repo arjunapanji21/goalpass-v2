@@ -32,10 +32,10 @@
             </div>
         </div>
         <div>
-            <div class="overflow-x-auto bg-base-100 rounded-lg shadow">
-                <table class="table table-compact w-full">
+            <div class="overflow-auto h-[450px] bg-base-100 rounded-lg shadow">
+                <table class="table table-sm w-full">
                     <!-- head -->
-                    <thead>
+                    <thead class="sticky top-0 bg-base-100 shadow">
                         <tr>
                             <th>#</th>
                             <th>Kota/Kabupaten</th>
@@ -49,7 +49,7 @@
                             v-for="(kota, index) in master.kota"
                             :key="index"
                         >
-                            <tr class="hover">
+                            <tr>
                                 <th>
                                     {{ index + 1 }}
                                 </th>

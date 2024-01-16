@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('username')->unique();
             $table->string('password');
-            $table->text('foto')->default('/images/no-profile.webp');
+            $table->string('foto')->default('/images/no-profile.webp');
             $table->rememberToken();
             $table->timestamps();
         });

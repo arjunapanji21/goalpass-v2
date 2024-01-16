@@ -31,10 +31,17 @@
                             </div>
                         </div>
                         <div class="py-2"></div>
-                        <div
+                        <div class="flex flex-row ">
+                            <div
                             class="font-bold text-primary-content text-xl bg-primary mx-4 w-max px-4 py-2 rounded"
                         >
                             {{ master.anggota.kd_kartu }}
+                        </div>
+                        <div
+                            class="font-bold  bg-success text-success-content w-max px-4 py-2 rounded"
+                        >
+                            Kartu Diterima
+                        </div>
                         </div>
                         <div class="py-5"></div>
                         <div class="card-body rounded-box bg-base-100 shadow">
@@ -106,7 +113,7 @@
                         />
                     </div>
                 </div>
-                <div class="card bg-base-100 my-4 shadow">
+                <div class="card card-compact bg-base-100 my-4 shadow">
                     <div class="card-body">
                         <div
                             class="text-xl font-bold mb-4 text-center text-primary"
@@ -176,7 +183,7 @@
                     </div>
                 </div>
                 <div class="grid lg:grid-cols-2 lg:gap-4">
-                    <div class="card bg-base-100 my-4 shadow">
+                    <div class="card card-compact bg-base-100 my-4 shadow">
                         <div class="card-body">
                             <div
                                 class="text-xl font-bold mb-4 text-center text-primary"
@@ -286,14 +293,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card w-full bg-base-100 my-4 shadow">
+                    <div class="card card-compact w-full bg-base-100 my-4 shadow">
                         <div class="card-body">
                             <div
                                 class="text-xl font-bold mb-4 text-center text-primary"
                             >
                                 Kemampuan Pemain
                             </div>
-                            <div class="w-72 lg:w-full overflow-auto">
+                            <div class="overflow-auto">
                                 <table class="table table-xs">
                                     <tr class="text-center">
                                         <th
@@ -515,7 +522,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card bg-base-100 my-4 shadow">
+                <div class="card card-compact bg-base-100 my-4 shadow">
                     <div class="card-body">
                         <div id="chart">
                             <apexchart
@@ -527,7 +534,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card bg-base-100 my-4 shadow">
+                <div class="card card-compact bg-base-100 my-4 shadow">
                     <div class="card-body">
                         <div
                             class="text-xl font-bold mb-4 text-center text-primary"
@@ -537,7 +544,7 @@
                         <div class="text-center">No Data</div>
                     </div>
                 </div>
-                <div class="card bg-base-100 my-4 shadow">
+                <div class="card card-compact bg-base-100 my-4 shadow">
                     <div class="card-body">
                         <div
                             class="text-xl font-bold mb-4 text-center text-primary"

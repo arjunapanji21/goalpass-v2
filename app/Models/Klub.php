@@ -9,4 +9,9 @@ class Klub extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    public function kota()
+    {
+        return $this->belongsTo(Kota::class, 'kota_id');
+    }
 }

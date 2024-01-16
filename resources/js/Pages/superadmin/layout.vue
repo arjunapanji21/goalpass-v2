@@ -5,7 +5,7 @@
     <div class="block md:flex">
         <div class="bg-primary drop-shadow-lg hidden md:flex z-50">
             <ul class="menu">
-                <li>
+                <li class="py-2">
                     <Link
                         :href="route('beranda')"
                         v-if="master.title == 'Beranda'"
@@ -49,10 +49,10 @@
                         </svg>
                     </Link>
                 </li>
-                <li>
+                <li class="py-2">
                     <Link
                         v-if="master.title == 'Anggota'"
-                        :href="route('anggota')"
+                        :href="route('anggota.index')"
                         class="tooltip tooltip-right bg-base-100 text-primary"
                         data-tip="Anggota"
                     >
@@ -71,7 +71,7 @@
                     </Link>
                     <Link
                         v-if="master.title != 'Anggota'"
-                        :href="route('anggota')"
+                        :href="route('anggota.index')"
                         class="tooltip tooltip-right text-base-100 hover:bg-base-100 hover:text-primary"
                         data-tip="Anggota"
                     >
@@ -89,7 +89,7 @@
                         </svg>
                     </Link>
                 </li>
-                <li>
+                <li class="py-2">
                     <Link
                         :href="route('admin')"
                         v-if="master.title == 'Admin'"
@@ -129,7 +129,7 @@
                         </svg>
                     </Link>
                 </li>
-                <li>
+                <li class="py-2">
                     <Link
                         :href="route('klub.index')"
                         v-if="master.title == 'Master'"
@@ -169,26 +169,24 @@
                         </svg>
                     </Link>
                 </li>
-                <!-- <li class="mt-auto mb-2">
+                <li class="py-2">
                     <Link
-                        :href="route('logout')"
-                        class="tooltip tooltip-right text-base-100 hover:bg-base-100 hover:text-primary"
-                        data-tip="Keluar"
+                        :href="route('activity_log.index')"
+                        v-if="master.title == 'Activity Log'"
+                        class="tooltip tooltip-right bg-base-100 text-primary"
+                        data-tip="Activity Log"
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            class="bi bi-door-open-fill mx-auto"
-                            viewBox="0 0 16 16"
-                        >
-                            <path
-                                d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"
-                            />
-                        </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512" class="w-4 h-4" fill="currentColor"><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg>
                     </Link>
-                </li> -->
+                    <Link
+                        :href="route('activity_log.index')"
+                        v-if="master.title != 'Activity Log'"
+                        class="tooltip tooltip-right text-base-100 hover:bg-base-100 hover:text-primary"
+                        data-tip="Activity Log"
+                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512" class="w-4 h-4" fill="currentColor"><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg>
+                    </Link>
+                </li>
             </ul>
         </div>
         <div class="w-full">
@@ -224,7 +222,7 @@
                             </label>
                             <ul
                                 tabindex="0"
-                                class="p-1 shadow menu dropdown-content z-[1] bg-primary text-primary-content rounded-box w-32"
+                                class="p-1 shadow menu dropdown-content z-[1] bg-base-100 text-base-content rounded-lg w-32"
                             >
                                 <li>
                                     <Link :href="route('logout')">
@@ -247,7 +245,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-4 max-w-6xl mx-auto"><slot></slot></div>
+                <div class="p-4 mx-auto"><slot></slot></div>
             </div>
         </div>
     </div>
@@ -273,7 +271,7 @@
             <span class="btm-nav-label">Beranda</span>
         </Link>
         <Link
-            :href="route('anggota')"
+            :href="route('anggota.index')"
             class="text-base-100 hover:bg-base-100 hover:text-primary"
         >
             <svg

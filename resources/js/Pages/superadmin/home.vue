@@ -17,10 +17,15 @@
                 <div class="stat-value text-primary">U-17</div>
                 <div class="stat-title text-xl">{{ master.u17 }} Orang</div>
             </div>
-        </div>
 
-        <div class="block md:flex">
-            <div class="m-2 card md:w-6/12 bg-base-100 shadow">
+            <div class="stat">
+                <div class="stat-value text-primary">SENIOR</div>
+                <div class="stat-title text-xl">{{ master.senior }} Orang</div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="grid lg:grid-cols-2 gap-4">
+            <div class="card card-compact bg-base-100 shadow">
                 <div class="card-body">
                     <div class="block gap-5 items-center">
                         <div class="text-primary">
@@ -44,7 +49,7 @@
                     </div>
                     <div class="card-actions justify-center pt-2">
                         <Link
-                            :href="route('anggota')"
+                            :href="route('anggota.index')"
                             class="btn btn-primary btn-sm btn-outline normal-case"
                         >
                             Lihat
@@ -52,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            <div class="m-2 card md:w-6/12 bg-primary shadow">
+            <div class="card card-compact bg-primary shadow">
                 <div class="card-body">
                     <div class="block gap-5 items-center my-auto">
                         <div class="text-primary-content">
@@ -89,18 +94,137 @@
                     </div>
                 </div>
             </div>
-            <div class="h-20 md:hidden"></div>
+            <div class="card card-compact bg-base-100 shadow">
+                <div class="card-body">
+                    <div class="card-title">Jumlah Anggota Per Wilayah</div>
+                    <div class="overflow-auto h-96">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Kota/Kabupaten</th>
+                                    <th>U-13</th>
+                                    <th>U-15</th>
+                                    <th>U-17</th>
+                                    <th>SENIOR</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template
+                                    v-for="(row, index) in master.wilayah"
+                                    :key="index"
+                                >
+                                    <tr>
+                                        <td>{{ index + 1 }}</td>
+                                        <td class="font-bold">
+                                            {{ row.kota }}
+                                        </td>
+                                        <td>{{ row.u13 }}</td>
+                                        <td>{{ row.u15 }}</td>
+                                        <td>{{ row.u17 }}</td>
+                                        <td>{{ row.senior }}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-compact bg-base-100 shadow">
+                <div class="card-body">
+                    <div class="card-title items-center justify-between">
+                        <h3>Pengajuan Anggota Baru</h3>
+                        <Link
+                            :href="route('anggota-baru.index')"
+                            class="btn btn-ghost text-primary"
+                            >Detail
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="16"
+                                width="16"
+                                viewBox="0 0 512 512"
+                                class="w-4 h-4"
+                                fill="currentColor"
+                            >
+                                <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                                <path
+                                    d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z"
+                                />
+                            </svg>
+                        </Link>
+                    </div>
+                    <div class="overflow-auto h-96">
+                        <table class="table table-sm">
+                            <!-- head -->
+                            <thead class="sticky top-0 bg-base-100 z-10">
+                                <tr class="text-center">
+                                    <th>Tgl. Pengajuan</th>
+                                    <th>Nama Pemain</th>
+                                    <th>Klub</th>
+                                    <th>Kota/Kab.</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template
+                                    v-for="(row, index) in master.submission"
+                                    :key="index"
+                                >
+                                    <tr>
+                                        <td class="text-right font-bold">
+                                            {{
+                                                moment(row.created_at).format(
+                                                    "DD/MM/YYYY"
+                                                )
+                                            }}
+                                        </td>
+                                        <td>
+                                            {{ row.nama }}
+                                        </td>
+                                        <td>{{ row.klub }}</td>
+                                        <td>
+                                            {{ row.kota_kab }}
+                                        </td>
+                                        <td class="text-center">
+                                            <span
+                                                class="badge badge-sm font-bold"
+                                                :class="{
+                                                    'badge-warning':
+                                                        row.status == 'Pending',
+                                                    'badge-success':
+                                                        row.status ==
+                                                        'Accepted',
+                                                    'badge-error':
+                                                        row.status ==
+                                                        'Rejected',
+                                                }"
+                                                >{{ row.status }}</span
+                                            >
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="grid grid-cols-3 gap-3"></div>
+        <div class="h-20 md:hidden"></div>
     </div>
 </template>
 <script>
 import layout from "../superadmin/layout.vue";
+import moment from "moment";
 export default {
     layout: layout,
     props: {
         auth: Object,
         master: Object,
+    },
+    setup(props) {
+        return {
+            moment,
+        };
     },
 };
 </script>
