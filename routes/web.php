@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
 
         // Mutasi
         Route::get('/mutasi', [MutasiController::class, 'index'])->name('mutasi.index');
+        Route::post('/mutasi/{mutasi_id}/batal', [MutasiController::class, 'destroy'])->name('mutasi.destroy');
         Route::get('/mutasi/create/{anggota_id}', [MutasiController::class, 'create'])->name('mutasi.create');
         Route::post('/mutasi/create/{anggota_id}/store', [MutasiController::class, 'store'])->name('mutasi.store');
 

@@ -62,4 +62,21 @@ class MutasiController extends Controller
         ]);
         return redirect(route('mutasi.index'))->with('alert', 'Permintaan Mutasi Anggota Berhasil Dibuat.');
     }
+
+    public function destroy(Request $request, $id)
+    {
+        try {
+            $mutasi = Mutasi::find($id);
+            ActivityLog::create([
+                'ip_add' => $request->ip(),
+                'user' => auth()->user()->nama,
+                'role' => auth()->user()->role,
+                'activity' => "Membatalkan permintaan mutasi pemain a.n '" . $mutasi->nama,
+            ]);
+            $mutasi->delete();
+            return back()->with('alert', 'Permintaan mutasi telah dibatalkan.');
+        } catch (\Throwable $th) {
+            return back()->with('alert', 'Gagal membatalkan mutasi.');
+        }
+    }
 }
