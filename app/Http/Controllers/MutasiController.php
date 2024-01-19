@@ -63,6 +63,31 @@ class MutasiController extends Controller
         return redirect(route('mutasi.index'))->with('alert', 'Permintaan Mutasi Anggota Berhasil Dibuat.');
     }
 
+    public function update(Request $request, $id)
+    {
+        try {
+            $mutasi = Mutasi::find($id);
+            ActivityLog::create([
+                'ip_add' => $request->ip(),
+                'user' => auth()->user()->nama,
+                'role' => auth()->user()->role,
+                'activity' => "Menerima permintaan mutasi pemain a.n '" . $mutasi->nama,
+            ]);
+            $anggota = Anggota::find($mutasi->anggota_id);
+            $anggota->update([
+                'klub' => $mutasi->klub_tujuan,
+                'kota_kab' => $mutasi->kota_tujuan,
+            ]);
+            $mutasi->update([
+                'status' => 'Accepted',
+                'confirm_by' => auth()->user()->nama,
+            ]);
+            return redirect(route('mutasi.index'))->with('alert', 'Permintaan mutasi telah diterima.');
+        } catch (\Throwable $th) {
+            return redirect(route('mutasi.index'))->with('alert', 'Gagal mengupdate data mutasi.');
+        }
+    }
+
     public function destroy(Request $request, $id)
     {
         try {

@@ -63,8 +63,8 @@
                                     </td>
                                     <td>{{row.confirm_by == null ? "-" : row.confirm_by}}</td>
                                     <td>
-                                        <div class="flex gap-2 justify-center items-center">
-                                            <label for="modal_detail_mutasi" @click="get_mutasi_detail(row)" class="btn btn-primary btn-xs btn-circle btn-outline">
+                                        <div class="flex gap-2 justify-center items-center" v-if="row.status == 'Pending'">
+                                            <label v-if="auth.user.role == 'Super Admin' || auth.user.role == 'Admin Asprov'" for="modal_detail_mutasi" @click="get_mutasi_detail(row)" class="btn btn-primary btn-xs btn-circle btn-outline">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="16" width="14" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
                                         </label>
                                         <label for="modal_hapus_mutasi" @click="get_mutasi_hapus(row)" class="btn btn-error btn-xs btn-circle btn-outline">
@@ -84,9 +84,10 @@
         <input type="checkbox" id="modal_detail_mutasi" class="modal-toggle" />
         <div class="modal" role="dialog">
             <div class="modal-box">
-                <h3 class="font-bold text-lg">Permintaan Mutasi Pemain</h3>
+                <h3 class="font-bold text-lg" id="txtKonfirmasiMutasi"></h3>
                 <div class="modal-action">
-                <label for="modal_detail_mutasi" class="btn">Close!</label>
+                    <button @click="btn_konfirmasi_mutasi()" class="btn btn-primary">Ya</button>
+                <label for="modal_detail_mutasi" class="btn">Tidak</label>
                 </div>
             </div>
         </div>
@@ -132,7 +133,17 @@ export default {
     },
     methods: {
         get_mutasi_detail(data){
-            console.log(data);
+            var txtJudul = document.getElementById('txtKonfirmasiMutasi');
+            txtJudul.innerHTML = "Terima permintaan mutasi pemain a.n. "+data.nama+" ?";
+            this.mutasi.id = data.id;
+        },
+        btn_konfirmasi_mutasi(){
+            this.mutasi.post(route("mutasi.update", this.mutasi.id), {
+                onSuccess: () => {
+                    alert("Permintaan mutasi pemain diterima.");
+                },
+                preserveScroll: true,
+            });
         },
         get_mutasi_hapus(data){
             var txtJudul = document.getElementById('txtBatalkanMutasi');

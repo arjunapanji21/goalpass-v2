@@ -6,6 +6,7 @@ use App\Models\Anggota;
 use App\Models\AnggotaBaru;
 use App\Models\Klub;
 use App\Models\Kota;
+use App\Models\Mutasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -44,8 +45,10 @@ class MainController extends Controller
 
         if (auth()->user()->role == 'Super Admin' || auth()->user()->role == 'Admin Asprov') {
             $submission = AnggotaBaru::orderBy('updated_at', 'desc')->get();
+            $mutasi = Mutasi::where('status', 'PENDING')->get();
         } else {
             $submission = AnggotaBaru::where('submit_by', auth()->user()->nama)->orderBy('updated_at', 'desc')->get();
+            $mutasi = [];
         }
 
         $master = [
@@ -56,7 +59,8 @@ class MainController extends Controller
             'u17' => count($u17),
             'senior' => count($senior),
             'wilayah' => $wilayah,
-            'submission' => $submission
+            'submission' => $submission,
+            'mutasi' => $mutasi,
         ];
         return inertia()->render('superadmin/home', compact('master'));
     }

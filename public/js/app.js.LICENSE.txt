@@ -2,10 +2,12 @@
  * @license MIT */
 
 /*!
- * ApexCharts v3.41.0
+ * ApexCharts v3.45.1
  * (c) 2018-2023 ApexCharts
  * Released under the MIT License.
  */
+
+/*! #__NO_SIDE_EFFECTS__ */
 
 /*! svg.draggable.js - v2.2.2 - 2019-01-08
 * https://github.com/svgdotjs/svg.draggable.js
@@ -14,6 +16,12 @@
 /*! svg.filter.js - v2.0.2 - 2016-02-24
 * https://github.com/wout/svg.filter.js
 * Copyright (c) 2016 Wout Fierens; Licensed MIT */
+
+/**
+* @vue/shared v3.4.14
+* (c) 2018-present Yuxi (Evan) You and Vue contributors
+* @license MIT
+**/
 
 //! moment.js
 
