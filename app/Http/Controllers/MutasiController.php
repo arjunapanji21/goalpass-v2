@@ -74,9 +74,12 @@ class MutasiController extends Controller
                 'activity' => "Menerima permintaan mutasi pemain a.n '" . $mutasi->nama,
             ]);
             $anggota = Anggota::find($mutasi->anggota_id);
+            $kd_kota = Kota::where('nama', $mutasi->kota_tujuan)->get()->first()->kd_kota;
             $anggota->update([
                 'klub' => $mutasi->klub_tujuan,
                 'kota_kab' => $mutasi->kota_tujuan,
+                'kd_kota' => $kd_kota,
+                'kd_kartu' => $kd_kota . substr($anggota->kd_kartu, 2),
             ]);
             $mutasi->update([
                 'status' => 'Accepted',

@@ -141,6 +141,7 @@ export default {
             this.mutasi.post(route("mutasi.update", this.mutasi.id), {
                 onSuccess: () => {
                     alert("Permintaan mutasi pemain diterima.");
+                    location.reload();
                 },
                 preserveScroll: true,
             });
@@ -154,6 +155,7 @@ export default {
             this.mutasi.post(route("mutasi.destroy", this.mutasi.id), {
                 onSuccess: () => {
                     alert("Mutasi pemain telah dibatalkan.");
+                    location.reload();
                 },
                 preserveScroll: true,
             });
