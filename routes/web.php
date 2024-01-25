@@ -12,6 +12,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\MutasiController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\UsiaController;
+use App\Http\Controllers\WasitController;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/anggota/update-anggota/{anggota_id}', [AnggotaController::class, 'update_anggota'])->name('anggota.update_data');
         Route::resource('anggota-baru', AnggotaBaruController::class);
         Route::post('/anggota/import', [AnggotaController::class, 'import'])->name('anggota.import');
+
+        // Wasit
+        Route::get('/wasit', [WasitController::class, 'index'])->name('wasit.index');
+        Route::get('/wasit/create', [WasitController::class, 'create'])->name('wasit.create');
+        Route::get('/wasit/show', [WasitController::class, 'show'])->name('wasit.show');
+        Route::post('/wasit/update', [WasitController::class, 'update'])->name('wasit.update');
+        Route::post('/wasit/delete', [WasitController::class, 'destroy'])->name('wasit.destroy');
 
         // Mutasi
         Route::get('/mutasi', [MutasiController::class, 'index'])->name('mutasi.index');
