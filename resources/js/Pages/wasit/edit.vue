@@ -8,15 +8,15 @@
                             auth.user.role
                         }}</Link>
                     </li>
-                    <li><Link :href="route('anggota.index')">Anggota</Link></li>
-                    <li>Anggota Baru</li>
+                    <li><Link :href="route('wasit.index')">Wasit</Link></li>
+                    <li>Data Pribadi Wasit</li>
                 </ul>
             </div>
             <div class="flex flex-col lg:flex-row gap-2">
                 <div class="card card-compact w-full lg:w-1/2 bg-base-100">
                     <div class="card-body">
                         <div class="card-title">
-                            <span>Data Anggota Baru</span>
+                            <span>Data Pribadi Wasit</span>
                         </div>
                         <div class="">
                             <div
@@ -24,47 +24,30 @@
                             >
                                 <img
                                     id="fotoProfile"
-                                    :src="
-                                        '/uploads/anggota_baru/'+master.data.nama +'/'+ master.data.foto
-                                    "
-                                    alt="Foto Anggota"
+                                    :src="'/foto_wasit/' +
+                                                    master.wasit.foto.replace(
+                                                        /’/g,
+                                                        '__'
+                                                    )"
+                                    alt="Foto Wasit"
                                     class="rounded-box"
                                 />
                             </div>
-                            <div class="form-control w-full">
-                                <label class="label gap-2 justify-start">
-                                    <span class="label-text">Foto Pemain</span>
-                                    <span class="label-text-alt text-error"
-                                        >*</span
-                                    >
-                                </label>
-                                <input
-                                    accept=".jpg"
-                                    id="foto"
-                                    type="file"
-                                    class="file-input file-input-bordered file-input-accent w-full"
-                                    @change="cek_file_size()"
-                                />
-                                <label class="label">
-                                    <span
-                                        class="label-text-alt text-error italic"
-                                        >*Ukuran maksimal 2MB</span
-                                    >
-                                </label>
-                            </div>
-                            <div class="grid grid-cols-2 gap-2">
+                            <div class="divider"></div>
+                            <!-- <div class="grid grid-cols-2 gap-2">
                                 <div class="form-control w-full">
                                     <label class="label gap-2 justify-start">
-                                        <span class="label-text"
-                                            >Scan Akta Kelahiran <a :href="'/uploads/anggota_baru/'+master.data.nama+'/'+master.data.akta_lahir" download class="link font-semibold italic text-primary">Download</a></span
+                                        <span class="label-text">Foto Wasit</span>
+                                        <span class="label-text-alt text-error"
+                                            >*</span
                                         >
                                     </label>
                                     <input
-                                        id="input_akta_kelahiran"
-                                        accept=".pdf"
+                                        accept=".jpg"
+                                        id="foto"
                                         type="file"
                                         class="file-input file-input-sm file-input-bordered file-input-accent w-full"
-                                        @change="input_akta_kelahiran()"
+                                        @change="cek_file_size()"
                                     />
                                     <label class="label">
                                         <span
@@ -76,7 +59,7 @@
                                 <div class="form-control w-full">
                                     <label class="label gap-2 justify-start">
                                         <span class="label-text"
-                                            >Scan Kartu Keluarga <a :href="'/uploads/anggota_baru/'+master.data.nama+'/'+master.data.KK" download class="link font-semibold italic text-primary">Download</a></span
+                                            >Scan Kartu Keluarga</span
                                         >
                                     </label>
                                     <input
@@ -84,7 +67,7 @@
                                         accept=".pdf"
                                         type="file"
                                         class="file-input file-input-sm file-input-bordered file-input-accent w-full"
-                                        @change="input_kartu_keluarga()"
+                                        @change="input_kk()"
                                     />
                                     <label class="label">
                                         <span
@@ -96,7 +79,7 @@
                                 <div class="form-control w-full">
                                     <label class="label gap-2 justify-start">
                                         <span class="label-text"
-                                            >Scan KIA/KTP <a :href="'/uploads/anggota_baru/'+master.data.nama+'/'+master.data.KTP" download class="link font-semibold italic text-primary">Download</a></span
+                                            >Scan KTP</span
                                         >
                                     </label>
                                     <input
@@ -115,34 +98,16 @@
                                 </div>
                                 <div class="form-control w-full">
                                     <label class="label gap-2 justify-start">
-                                        <span class="label-text">Pas Foto <a :href="'/uploads/anggota_baru/'+master.data.nama+'/'+master.data.pasfoto" download class="link font-semibold italic text-primary">Download</a></span>
-                                    </label>
-                                    <input
-                                        accept=".jpg"
-                                        id="input_pasfoto"
-                                        type="file"
-                                        class="file-input file-input-sm file-input-bordered file-input-accent w-full"
-                                        @change="input_pasfoto()"
-                                    />
-                                    <label class="label">
-                                        <span
-                                            class="label-text-alt text-error italic"
-                                            >*Ukuran maksimal 2MB</span
-                                        >
-                                    </label>
-                                </div>
-                                <div class="form-control w-full">
-                                    <label class="label gap-2 justify-start">
                                         <span class="label-text"
-                                            >Scan Kartu Pelajar/KTM<a :href="'/uploads/anggota_baru/'+master.data.nama+'/'+master.data.KTM" download class="link font-semibold italic text-primary">Download</a></span
+                                            >Scan Sertifikat Wasit</span
                                         >
                                     </label>
                                     <input
                                         accept=".pdf"
-                                        id="input_ktm"
+                                        id="input_sertifikat"
                                         type="file"
                                         class="file-input file-input-sm file-input-bordered file-input-accent w-full"
-                                        @change="input_ktm()"
+                                        @change="input_sertifikat()"
                                     />
                                     <label class="label">
                                         <span
@@ -151,27 +116,7 @@
                                         >
                                     </label>
                                 </div>
-                                <div class="form-control w-full">
-                                    <label class="label gap-2 justify-start">
-                                        <span class="label-text"
-                                            >Scan Ijazah Terakhir <Link :href="'/uploads/anggota_baru/'+master.data.nama+'/'+master.data.ijazah" download class="link font-semibold italic text-primary">Download</Link></span
-                                        >
-                                    </label>
-                                    <input
-                                        accept=".pdf"
-                                        id="input_ijazah"
-                                        type="file"
-                                        class="file-input file-input-sm file-input-bordered file-input-accent w-full"
-                                        @change="input_ijazah()"
-                                    />
-                                    <label class="label">
-                                        <span
-                                            class="label-text-alt text-error italic"
-                                            >*Ukuran maksimal 2MB</span
-                                        >
-                                    </label>
-                                </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -180,21 +125,21 @@
                         <div class="">
                             <div class="form-control w-full">
                                 <label class="label gap-2 justify-start">
-                                    <span class="label-text">Nama Pemain</span>
+                                    <span class="label-text">Nama Wasit</span>
                                     <span class="label-text-alt text-error"
                                         >*</span
                                     >
                                 </label>
-                                <input 
+                                <input
                                     type="text"
-                                    placeholder="Nama Pemain"
+                                    placeholder="Nama Wasit"
                                     class="input input-bordered w-full"
                                     v-model="form.nama"
                                 />
                                 <label class="label">
                                     <span
                                         class="label-text-alt text-error italic"
-                                        >*Nama pemain wajib di isi</span
+                                        >*Nama wasit wajib di isi</span
                                     >
                                 </label>
                             </div>
@@ -214,7 +159,7 @@
                                 <label class="label">
                                     <span
                                         class="label-text-alt text-error italic"
-                                        >*NIK pemain wajib di isi</span
+                                        >*NIK wasit wajib di isi</span
                                     >
                                 </label>
                             </div>
@@ -233,7 +178,7 @@
                                 <label class="label">
                                     <span
                                         class="label-text-alt text-error italic"
-                                        >*Tanggal lahir pemain wajib di
+                                        >*Tanggal lahir wasit wajib di
                                         isi</span
                                     >
                                 </label>
@@ -246,10 +191,10 @@
                                     >
                                 </label>
                                 <select
-                                    class="select select-bordered w-full"
+                                                                    class="select select-bordered w-full"
                                     v-model="form.kd_gender"
                                 >
-                                    <option :value="null" selected>
+                                    <option disabled :value="null" selected>
                                         Gender:
                                     </option>
                                     <option value="01">Laki-laki</option>
@@ -258,7 +203,7 @@
                                 <label class="label">
                                     <span
                                         class="label-text-alt text-error italic"
-                                        >*Pilih gender pemain</span
+                                        >*Pilih gender wasit</span
                                     >
                                 </label>
                             </div>
@@ -271,14 +216,21 @@
                                         >*</span
                                     >
                                 </label>
-                                <select disabled
-                                    @change="get_klub_by_location()"
-                                    class="select select-bordered w-full"
+                                <select
+                                                                    class="select select-bordered w-full"
                                     v-model="form.kota_kab"
                                 >
-                                    <option :value="auth.user.kota_kab" selected>
-                                        {{auth.user.kota_kab}}
+                                    <option disabled :value="null" selected>
+                                    Pilih Kota/Kabupaten:
                                     </option>
+                                    <template
+                                        v-for="(kota, index) in master.kota"
+                                        :key="index"
+                                    >
+                                        <option :value="kota.id">
+                                            {{ kota.kd_kota }} - {{ kota.nama }}
+                                        </option>
+                                    </template>
                                 </select>
                                 <label class="label">
                                     <span
@@ -289,62 +241,28 @@
                             </div>
                             <div class="form-control w-full">
                                 <label class="label gap-2 justify-start">
-                                    <span class="label-text">Klub</span>
-                                    <span class="label-text-alt text-error"
-                                        >*</span
-                                    >
-                                </label>
-                                <select
-                                    class="select select-bordered w-full"
-                                    v-model="form.klub"
-                                >
-                                <option disabled :value="null" selected>
-                                        Pilih Klub:
-                                    </option>
-                                    <option value="- FREE AGENT -">
-                                        - FREE AGENT -
-                                    </option>
-                                    <template
-                                        v-for="(klub, index) in master.klub"
-                                        :key="index"
-                                    >
-                                        <option :value="klub.nama">
-                                            {{ klub.nama }}
-                                        </option>
-                                    </template>
-                                </select>
-                                <label class="label">
-                                    <span
-                                        class="label-text-alt text-error italic"
-                                        >*Pilih Klub</span
-                                    >
-                                </label>
-                            </div>
-                            <div class="form-control w-full">
-                                <label class="label gap-2 justify-start">
                                     <span class="label-text"
-                                        >Kategori Usia</span
+                                        >Lisensi Wasit</span
                                     >
                                     <span class="label-text-alt text-error"
                                         >*</span
                                     >
                                 </label>
                                 <select
-                                    class="select select-bordered w-full"
-                                    v-model="form.umur"
+                                                                    class="select select-bordered w-full"
+                                    v-model="form.license"
                                 >
                                     <option disabled :value="null" selected>
-                                        Pilih Kategori Usia:
+                                        Lisensi Wasit:
                                     </option>
-                                    <option value="U-13">U-13</option>
-                                    <option value="U-15">U-15</option>
-                                    <option value="U-17">U-17</option>
-                                    <option value="SENIOR">SENIOR</option>
+                                    <option value="unlicensed">unlicensed</option>
+                                    <option value="C2">C2</option>
+                                    <option value="C1">C1</option>
                                 </select>
                                 <label class="label">
                                     <span
                                         class="label-text-alt text-error italic"
-                                        >*Pilih Kategori Usia</span
+                                        >*Pilih lisensi wasit</span
                                     >
                                 </label>
                             </div>
@@ -353,11 +271,8 @@
                 </div>
             </div>
             <div class="card-actions justify-end p-2">
-                <button @click="btn_submit()" class="btn btn-primary">
-                    Simpan
-                </button>
-                <Link :href="route('anggota.index')" class="btn btn-ghost"
-                    >Batal</Link
+                <Link :href="route('wasit.index')" class="btn btn-primary"
+                    >Kembali</Link
                 >
             </div>
         </div>
@@ -375,39 +290,25 @@ export default {
     },
     setup(props) {
         const form = useForm({
-            nama: props.master.data.nama,
-            tgl_lahir: props.master.data.tgl_lahir,
-            kd_gender: props.master.data.kd_gender,
-            nik: props.master.data.nik,
-            kota_kab: props.auth.user.kota_kab,
-            klub: props.master.data.klub,
-            umur: props.master.data.umur,
-            foto: props.master.data.foto,
-            akta_lahir: props.master.data.akta_lahir,
-            KK: props.master.data.KK,
-            KTP: props.master.data.KTP,
-            pasfoto: props.master.data.pasfoto,
-            KTM: props.master.data.KTM,
-            ijazah: props.master.data.ijazah,
+            nama: props.master.wasit.nama,
+            tgl_lahir: props.master.wasit.tgl_lahir,
+            kd_gender: props.master.wasit.kd_gender,
+            nik: props.master.wasit.nik,
+            kota_kab: props.master.wasit.kd_kota,
+            foto: props.master.wasit.foto,
+            KK: props.master.wasit.KK,
+            KTP: props.master.wasit.KTP,
+            sertifikat: props.master.wasit.sertifikat,
+            license: props.master.wasit.license
         });
         return { form };
     },
     methods: {
         btn_submit() {
-            this.form.post(route("anggota-baru.store"), {
+            this.form.post(route("wasit.store"), {
                 onSuccess: () => {
-                    alert("Berhasil menambahkan anggota baru!");
+                    alert("Berhasil menambahkan data wasit!");
                 },
-                preserveScroll: true,
-            });
-        },
-        btn_upload() {
-            this.form.file = document.getElementById("file").files[0];
-            this.form.post(route("anggota.import"), {
-                // onSuccess: () => {
-                //     alert("Login Success!");
-                // },
-                preserveScroll: true,
             });
         },
         cek_file_size() {
@@ -425,15 +326,6 @@ export default {
                 };
 
                 reader.readAsDataURL(uploadFoto.files[0]);
-            }
-        },
-        input_akta_kelahiran() {
-            const uploadFile = document.getElementById("input_akta_kelahiran");
-            if (uploadFile.files[0].size > 2097152) {
-                alert("Ukuran file lebih dari 2MB");
-                uploadFile.value = "";
-            } else {
-                this.form.akta_lahir = uploadFile.files[0];
             }
         },
         input_kk() {
@@ -454,37 +346,14 @@ export default {
                 this.form.KTP = uploadFile.files[0];
             }
         },
-        input_pasfoto() {
-            const uploadFile = document.getElementById("input_pasfoto");
+        input_sertifikat() {
+            const uploadFile = document.getElementById("input_sertifikat");
             if (uploadFile.files[0].size > 2097152) {
                 alert("Ukuran file lebih dari 2MB");
                 uploadFile.value = "";
             } else {
-                this.form.pasfoto = uploadFile.files[0];
+                this.form.sertifikat = uploadFile.files[0];
             }
-        },
-        input_ktm() {
-            const uploadFile = document.getElementById("input_ktm");
-            if (uploadFile.files[0].size > 2097152) {
-                alert("Ukuran file lebih dari 2MB");
-                uploadFile.value = "";
-            } else {
-                this.form.KTM = uploadFile.files[0];
-            }
-        },
-        input_ijazah() {
-            const uploadFile = document.getElementById("input_ijazah");
-            if (uploadFile.files[0].size > 2097152) {
-                alert("Ukuran file lebih dari 2MB");
-                uploadFile.value = "";
-            } else {
-                this.form.ijazah = uploadFile.files[0];
-            }
-        },
-        get_klub_by_location() {
-            axios
-                .get(route("get.klub", props.auth.user.kota_kab))
-                .then((response) => (this.master.klub = response.data));
         },
     },
 };

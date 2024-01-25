@@ -55,9 +55,13 @@ Route::middleware('auth')->group(function () {
         // Wasit
         Route::get('/wasit', [WasitController::class, 'index'])->name('wasit.index');
         Route::get('/wasit/create', [WasitController::class, 'create'])->name('wasit.create');
-        Route::get('/wasit/show', [WasitController::class, 'show'])->name('wasit.show');
+        Route::get('/wasit/{kd_kartu}/edit', [WasitController::class, 'edit'])->name('wasit.edit');
+        Route::get('/wasit/{kd_kartu}/show', [WasitController::class, 'show'])->name('wasit.show');
+        Route::post('/wasit/store', [WasitController::class, 'store'])->name('wasit.store');
         Route::post('/wasit/update', [WasitController::class, 'update'])->name('wasit.update');
         Route::post('/wasit/delete', [WasitController::class, 'destroy'])->name('wasit.destroy');
+        Route::get('/wasit/cetak/{kd_kartu}', [WasitController::class, 'cetakKartu'])->name('wasit.cetak');
+        Route::post('/wasit/cetak/batch', [WasitController::class, 'batchDownload'])->name('wasit.batch.download');
 
         // Mutasi
         Route::get('/mutasi', [MutasiController::class, 'index'])->name('mutasi.index');

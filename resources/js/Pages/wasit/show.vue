@@ -8,475 +8,278 @@
                             auth.user.role
                         }}</Link>
                     </li>
-                    <li><Link :href="route('anggota.index')">Anggota</Link></li>
-                    <li>Anggota Baru</li>
+                    <li><Link :href="route('wasit.index')">Wasit</Link></li>
+                    <li>Data Pribadi Wasit</li>
                 </ul>
             </div>
-            <div class="w-full">
-                <div class="card card-compact w-full bg-base-100">
+            <div class="flex flex-col lg:flex-row gap-2">
+                <div class="card card-compact w-full lg:w-1/2 bg-base-100">
                     <div class="card-body">
                         <div class="card-title">
-                            <span>Data Anggota Baru</span>
+                            <span>Data Pribadi Wasit</span>
                         </div>
                         <div class="">
-                            <div class="flex flex-col lg:flex-row gap-4">
-                                <div class="bg-base-100 rounded-box lg:w-72">
-                                    <img
-                                        id="fotoProfile"
-                                        :src="
-                                            '/uploads/anggota_baru/' +
-                                            master.data.nama +
-                                            '/' +
-                                            master.data.foto
-                                        "
-                                        alt="Foto Anggota"
-                                        class="rounded-box"
-                                    />
-                                </div>
-                                <div class="w-full">
-                                    <div class="overflow-auto">
-                                        <table class="table table-xs">
-                                            <tr>
-                                                <th>Nama</th>
-                                                <td>
-                                                    <input
-                                                        type="text"
-                                                        class="input input-sm input-bordered w-full"
-                                                        :value="
-                                                            master.data.nama
-                                                        "
-                                                        disabled
-                                                    />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>NIK</th>
-                                                <td>
-                                                    <input
-                                                        type="text"
-                                                        class="input input-sm input-bordered w-full"
-                                                        :value="master.data.nik"
-                                                        disabled
-                                                    />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Tgl. Lahir</th>
-                                                <td>
-                                                    <input
-                                                        type="text"
-                                                        class="input input-sm input-bordered w-full"
-                                                        :value="
-                                                            master.data
-                                                                .tgl_lahir
-                                                        "
-                                                        disabled
-                                                    />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Gender</th>
-                                                <td>
-                                                    <input
-                                                        v-if="
-                                                            master.data
-                                                                .kd_gender ==
-                                                            '01'
-                                                        "
-                                                        type="text"
-                                                        class="input input-sm input-bordered w-full"
-                                                        value="Laki-laki"
-                                                        disabled
-                                                    />
-                                                    <input
-                                                        v-if="
-                                                            master.data
-                                                                .kd_gender ==
-                                                            '02'
-                                                        "
-                                                        type="text"
-                                                        class="input input-sm input-bordered w-full"
-                                                        value="Perempuan"
-                                                        disabled
-                                                    />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Kota/Kabupaten</th>
-                                                <td>
-                                                    <input
-                                                        type="text"
-                                                        class="input input-sm input-bordered w-full"
-                                                        :value="
-                                                            master.data.kota_kab
-                                                        "
-                                                        disabled
-                                                    />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Klub</th>
-                                                <td>
-                                                    <input
-                                                        type="text"
-                                                        class="input input-sm input-bordered w-full"
-                                                        :value="
-                                                            master.data.klub
-                                                        "
-                                                        disabled
-                                                    />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Kategori Usia</th>
-                                                <td>
-                                                    <input
-                                                        type="text"
-                                                        class="input input-sm input-bordered w-full"
-                                                        :value="
-                                                            master.data.umur
-                                                        "
-                                                        disabled
-                                                    />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="divider">Dokumen Pendukung</div>
-                            <div class="grid grid-cols-2 gap-2">
-                                <label class="form-control w-full">
-                                    <div class="label justify-start gap-1">
-                                        <span class="label-text"
-                                            >Akta Kelahiran</span
-                                        >
-                                        <span class="label-text-alt text-error"
-                                            >*</span
-                                        >
-                                    </div>
-                                    <div class="join">
-                                        <input
-                                            type="text"
-                                            :value="master.data.akta_lahir"
-                                            class="join-item input input-bordered w-full input-sm"
-                                            disabled
-                                        />
-                                        <a
-                                            :href="
-                                                '/uploads/anggota_baru/' +
-                                                master.data.nama +
-                                                '/' +
-                                                master.data.akta_lahir
-                                            "
-                                            target="_blank"
-                                            class="join-item btn btn-info hover:btn-primary btn-sm"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                height="16"
-                                                width="18"
-                                                viewBox="0 0 576 512"
-                                                class="w-4 h-4"
-                                                fill="currentColor"
-                                            >
-                                                <path
-                                                    d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"
-                                                />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </label>
-                                <label class="form-control w-full">
-                                    <div class="label justify-start gap-1">
-                                        <span class="label-text"
-                                            >Kartu Keluarga</span
-                                        >
-                                        <span class="label-text-alt text-error"
-                                            >*</span
-                                        >
-                                    </div>
-                                    <div class="join">
-                                        <input
-                                            type="text"
-                                            :value="master.data.KK"
-                                            class="join-item input input-bordered w-full input-sm"
-                                            disabled
-                                        />
-                                        <a
-                                            :href="
-                                                '/uploads/anggota_baru/' +
-                                                master.data.nama +
-                                                '/' +
-                                                master.data.KK
-                                            "
-                                            target="_blank"
-                                            class="join-item btn btn-info hover:btn-primary btn-sm"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                height="16"
-                                                width="18"
-                                                viewBox="0 0 576 512"
-                                                class="w-4 h-4"
-                                                fill="currentColor"
-                                            >
-                                                <path
-                                                    d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"
-                                                />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </label>
-                                <label class="form-control w-full">
-                                    <div class="label justify-start gap-1">
-                                        <span class="label-text">KIA/KTP</span>
-                                        <span class="label-text-alt text-error"
-                                            >*</span
-                                        >
-                                    </div>
-                                    <div class="join">
-                                        <input
-                                            type="text"
-                                            :value="master.data.KTP"
-                                            class="join-item input input-bordered w-full input-sm"
-                                            disabled
-                                        />
-                                        <a
-                                            :href="
-                                                '/uploads/anggota_baru/' +
-                                                master.data.nama +
-                                                '/' +
-                                                master.data.KTP
-                                            "
-                                            target="_blank"
-                                            class="join-item btn btn-info hover:btn-primary btn-sm"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                height="16"
-                                                width="18"
-                                                viewBox="0 0 576 512"
-                                                class="w-4 h-4"
-                                                fill="currentColor"
-                                            >
-                                                <path
-                                                    d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"
-                                                />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </label>
-                                <label class="form-control w-full">
-                                    <div class="label justify-start gap-1">
-                                        <span class="label-text">Pasfoto</span>
-                                        <span class="label-text-alt text-error"
-                                            >*</span
-                                        >
-                                    </div>
-                                    <div class="join">
-                                        <input
-                                            type="text"
-                                            :value="master.data.pasfoto"
-                                            class="join-item input input-bordered w-full input-sm"
-                                            disabled
-                                        />
-                                        <a
-                                            :href="
-                                                '/uploads/anggota_baru/' +
-                                                master.data.nama +
-                                                '/' +
-                                                master.data.pasfoto
-                                            "
-                                            target="_blank"
-                                            class="join-item btn btn-info hover:btn-primary btn-sm"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                height="16"
-                                                width="18"
-                                                viewBox="0 0 576 512"
-                                                class="w-4 h-4"
-                                                fill="currentColor"
-                                            >
-                                                <path
-                                                    d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"
-                                                />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </label>
-                                <label class="form-control w-full">
-                                    <div class="label justify-start gap-1">
-                                        <span class="label-text"
-                                            >Kartu Pelahar/KTM</span
-                                        >
-                                        <span class="label-text-alt text-error"
-                                            >*</span
-                                        >
-                                    </div>
-                                    <div class="join">
-                                        <input
-                                            type="text"
-                                            :value="master.data.KTM"
-                                            class="join-item input input-bordered w-full input-sm"
-                                            disabled
-                                        />
-                                        <a
-                                            :href="
-                                                '/uploads/anggota_baru/' +
-                                                master.data.nama +
-                                                '/' +
-                                                master.data.KTM
-                                            "
-                                            target="_blank"
-                                            class="join-item btn btn-info hover:btn-primary btn-sm"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                height="16"
-                                                width="18"
-                                                viewBox="0 0 576 512"
-                                                class="w-4 h-4"
-                                                fill="currentColor"
-                                            >
-                                                <path
-                                                    d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"
-                                                />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </label>
-                                <label class="form-control w-full">
-                                    <div class="label justify-start gap-1">
-                                        <span class="label-text"
-                                            >Ijazah Terakhir</span
-                                        >
-                                        <span class="label-text-alt text-error"
-                                            >*</span
-                                        >
-                                    </div>
-                                    <div class="join">
-                                        <input
-                                            type="text"
-                                            :value="master.data.ijazah"
-                                            class="join-item input input-bordered w-full input-sm"
-                                            disabled
-                                        />
-                                        <a
-                                            :href="
-                                                '/uploads/anggota_baru/' +
-                                                master.data.nama +
-                                                '/' +
-                                                master.data.ijazah
-                                            "
-                                            target="_blank"
-                                            class="join-item btn btn-info hover:btn-primary btn-sm"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                height="16"
-                                                width="18"
-                                                viewBox="0 0 576 512"
-                                                class="w-4 h-4"
-                                                fill="currentColor"
-                                            >
-                                                <path
-                                                    d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"
-                                                />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="divider">Status Pengajuan</div>
-                            <label
-                                class="form-control w-full"
-                                v-if="
-                                    (auth.user.role == 'Super Admin' &&
-                                        master.data.status != 'Accepted') ||
-                                    (auth.user.role == 'Admin Asprov' &&
-                                        master.data.status != 'Accepted')
-                                "
-                            >
-                                <select
-                                    v-model="form.status"
-                                    class="select select-bordered w-full"
-                                >
-                                    <option value="Pending">Pending</option>
-                                    <option value="Accepted">Accepted</option>
-                                    <option value="Rejected">Rejected</option>
-                                </select>
-                            </label>
                             <div
-                                v-if="
-                                    auth.user.role == 'Admin Askot/Askab' ||
-                                    master.data.status == 'Accepted'
-                                "
-                                class="flex justify-center items-center w-full"
+                                class="p-3 mx-auto bg-base-100 rounded-box shadow lg:w-72"
                             >
-                                <span
-                                    class="badge badge-lg font-bold"
-                                    :class="{
-                                        'badge-warning':
-                                            master.data.status == 'Pending',
-                                        'badge-success':
-                                            master.data.status == 'Accepted',
-                                        'badge-error':
-                                            master.data.status == 'Rejected',
-                                    }"
-                                >
-                                    {{ master.data.status }}
-                                </span>
+                                <img
+                                    id="fotoProfile"
+                                    :src="'/foto_wasit/' +
+                                                    master.wasit.foto.replace(
+                                                        /’/g,
+                                                        '__'
+                                                    )"
+                                    alt="Foto Wasit"
+                                    class="rounded-box"
+                                />
                             </div>
-                            <label
-                                class="form-control"
-                                v-if="form.status == 'Rejected'"
-                            >
-                                <div class="label justify-start gap-1">
+                            <div class="divider"></div>
+                            <!-- <div class="grid grid-cols-2 gap-2">
+                                <div class="form-control w-full">
+                                    <label class="label gap-2 justify-start">
+                                        <span class="label-text">Foto Wasit</span>
+                                        <span class="label-text-alt text-error"
+                                            >*</span
+                                        >
+                                    </label>
+                                    <input
+                                        accept=".jpg"
+                                        id="foto"
+                                        type="file"
+                                        class="file-input file-input-sm file-input-bordered file-input-accent w-full"
+                                        @change="cek_file_size()"
+                                    />
+                                    <label class="label">
+                                        <span
+                                            class="label-text-alt text-error italic"
+                                            >*Ukuran maksimal 2MB</span
+                                        >
+                                    </label>
+                                </div>
+                                <div class="form-control w-full">
+                                    <label class="label gap-2 justify-start">
+                                        <span class="label-text"
+                                            >Scan Kartu Keluarga</span
+                                        >
+                                    </label>
+                                    <input
+                                        id="input_kk"
+                                        accept=".pdf"
+                                        type="file"
+                                        class="file-input file-input-sm file-input-bordered file-input-accent w-full"
+                                        @change="input_kk()"
+                                    />
+                                    <label class="label">
+                                        <span
+                                            class="label-text-alt text-error italic"
+                                            >*Ukuran maksimal 2MB</span
+                                        >
+                                    </label>
+                                </div>
+                                <div class="form-control w-full">
+                                    <label class="label gap-2 justify-start">
+                                        <span class="label-text"
+                                            >Scan KTP</span
+                                        >
+                                    </label>
+                                    <input
+                                        accept=".pdf"
+                                        id="input_ktp"
+                                        type="file"
+                                        class="file-input file-input-sm file-input-bordered file-input-accent w-full"
+                                        @change="input_ktp()"
+                                    />
+                                    <label class="label">
+                                        <span
+                                            class="label-text-alt text-error italic"
+                                            >*Ukuran maksimal 2MB</span
+                                        >
+                                    </label>
+                                </div>
+                                <div class="form-control w-full">
+                                    <label class="label gap-2 justify-start">
+                                        <span class="label-text"
+                                            >Scan Sertifikat Wasit</span
+                                        >
+                                    </label>
+                                    <input
+                                        accept=".pdf"
+                                        id="input_sertifikat"
+                                        type="file"
+                                        class="file-input file-input-sm file-input-bordered file-input-accent w-full"
+                                        @change="input_sertifikat()"
+                                    />
+                                    <label class="label">
+                                        <span
+                                            class="label-text-alt text-error italic"
+                                            >*Ukuran maksimal 2MB</span
+                                        >
+                                    </label>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-compact w-full lg:w-1/2 bg-base-100">
+                    <div class="card-body">
+                        <div class="">
+                            <div class="form-control w-full">
+                                <label class="label gap-2 justify-start">
+                                    <span class="label-text">Nama Wasit</span>
+                                    <span class="label-text-alt text-error"
+                                        >*</span
+                                    >
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder="Nama Wasit"
+                                    class="input input-bordered w-full"
+                                    v-model="form.nama"
+                                    readonly
+                                />
+                                <label class="label">
+                                    <span
+                                        class="label-text-alt text-error italic"
+                                        >*Nama wasit wajib di isi</span
+                                    >
+                                </label>
+                            </div>
+                            <div class="form-control w-full">
+                                <label class="label gap-2 justify-start">
+                                    <span class="label-text">NIK</span>
+                                    <span class="label-text-alt text-error"
+                                        >*</span
+                                    >
+                                </label>
+                                <input
+                                readonly
+                                    type="number"
+                                    placeholder="Nomor Induk Kependudukan"
+                                    class="input input-bordered w-full"
+                                    v-model="form.nik"
+                                />
+                                <label class="label">
+                                    <span
+                                        class="label-text-alt text-error italic"
+                                        >*NIK wasit wajib di isi</span
+                                    >
+                                </label>
+                            </div>
+                            <div class="form-control w-full">
+                                <label class="label gap-2 justify-start">
+                                    <span class="label-text">Tgl. Lahir</span>
+                                    <span class="label-text-alt text-error"
+                                        >*</span
+                                    >
+                                </label>
+                                <input
+                                readonly
+                                    type="date"
+                                    class="input input-bordered w-full"
+                                    v-model="form.tgl_lahir"
+                                />
+                                <label class="label">
+                                    <span
+                                        class="label-text-alt text-error italic"
+                                        >*Tanggal lahir wasit wajib di
+                                        isi</span
+                                    >
+                                </label>
+                            </div>
+                            <div class="form-control w-full">
+                                <label class="label gap-2 justify-start">
+                                    <span class="label-text">Gender</span>
+                                    <span class="label-text-alt text-error"
+                                        >*</span
+                                    >
+                                </label>
+                                <select
+                                disabled
+                                    class="select select-bordered w-full"
+                                    v-model="form.kd_gender"
+                                >
+                                    <option disabled :value="null" selected>
+                                        Gender:
+                                    </option>
+                                    <option value="01">Laki-laki</option>
+                                    <option value="02">Perempuan</option>
+                                </select>
+                                <label class="label">
+                                    <span
+                                        class="label-text-alt text-error italic"
+                                        >*Pilih gender wasit</span
+                                    >
+                                </label>
+                            </div>
+                            <div class="form-control w-full">
+                                <label class="label gap-2 justify-start">
                                     <span class="label-text"
-                                        >Alasan Ditolak</span
+                                        >Kota/Kabupaten</span
                                     >
                                     <span class="label-text-alt text-error"
                                         >*</span
                                     >
-                                </div>
-                                <textarea
-                                    v-if="master.data.status == 'Rejected'"
-                                    readonly
-                                    class="textarea textarea-bordered h-24 w-full"
-                                    >{{ master.data.reject_msg }}</textarea
+                                </label>
+                                <select
+                                disabled
+                                    class="select select-bordered w-full"
+                                    v-model="form.kota_kab"
                                 >
-                                <textarea
-                                    v-else
-                                    class="textarea textarea-bordered h-24 w-full"
-                                    placeholder="Ditolak ..."
-                                    v-model="form.reject_msg"
-                                    >{{ master.data.reject_msg }}</textarea
+                                    <option disabled :value="null" selected>
+                                    Pilih Kota/Kabupaten:
+                                    </option>
+                                    <template
+                                        v-for="(kota, index) in master.kota"
+                                        :key="index"
+                                    >
+                                        <option :value="kota.id">
+                                            {{ kota.kd_kota }} - {{ kota.nama }}
+                                        </option>
+                                    </template>
+                                </select>
+                                <label class="label">
+                                    <span
+                                        class="label-text-alt text-error italic"
+                                        >*Pilih Kota/Kabupaten</span
+                                    >
+                                </label>
+                            </div>
+                            <div class="form-control w-full">
+                                <label class="label gap-2 justify-start">
+                                    <span class="label-text"
+                                        >Lisensi Wasit</span
+                                    >
+                                    <span class="label-text-alt text-error"
+                                        >*</span
+                                    >
+                                </label>
+                                <select
+                                disabled
+                                    class="select select-bordered w-full"
+                                    v-model="form.license"
                                 >
-                            </label>
-                        </div>
-                        <div class="card-actions justify-end p-2">
-                            <button
-                                @click="btn_submit()"
-                                class="btn btn-primary"
-                                v-if="
-                                    (auth.user.role == 'Super Admin' &&
-                                        master.data.status != 'Accepted') ||
-                                    (auth.user.role == 'Admin Asprov' &&
-                                        master.data.status != 'Accepted')
-                                "
-                            >
-                                Simpan
-                            </button>
-                            <Link
-                                :href="route('anggota-baru.index')"
-                                class="btn"
-                                >Kembali</Link
-                            >
+                                    <option disabled :value="null" selected>
+                                        Lisensi Wasit:
+                                    </option>
+                                    <option value="unlicensed">unlicensed</option>
+                                    <option value="C2">C2</option>
+                                    <option value="C1">C1</option>
+                                </select>
+                                <label class="label">
+                                    <span
+                                        class="label-text-alt text-error italic"
+                                        >*Pilih lisensi wasit</span
+                                    >
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="card-actions justify-end p-2">
+                <Link :href="route('wasit.index')" class="btn btn-primary"
+                    >Kembali</Link
+                >
             </div>
         </div>
     </div>
@@ -493,27 +296,25 @@ export default {
     },
     setup(props) {
         const form = useForm({
-            status: props.master.data.status,
-            reject_msg: null,
+            nama: props.master.wasit.nama,
+            tgl_lahir: props.master.wasit.tgl_lahir,
+            kd_gender: props.master.wasit.kd_gender,
+            nik: props.master.wasit.nik,
+            kota_kab: props.master.wasit.kd_kota,
+            foto: props.master.wasit.foto,
+            KK: props.master.wasit.KK,
+            KTP: props.master.wasit.KTP,
+            sertifikat: props.master.wasit.sertifikat,
+            license: props.master.wasit.license
         });
         return { form };
     },
     methods: {
         btn_submit() {
-            this.form.put(route("anggota-baru.update", this.master.data), {
+            this.form.post(route("wasit.store"), {
                 onSuccess: () => {
-                    alert("Berhasil menambahkan anggota baru!");
+                    alert("Berhasil menambahkan data wasit!");
                 },
-                preserveScroll: true,
-            });
-        },
-        btn_upload() {
-            this.form.file = document.getElementById("file").files[0];
-            this.form.post(route("anggota.import"), {
-                // onSuccess: () => {
-                //     alert("Login Success!");
-                // },
-                preserveScroll: true,
             });
         },
         cek_file_size() {
@@ -531,15 +332,6 @@ export default {
                 };
 
                 reader.readAsDataURL(uploadFoto.files[0]);
-            }
-        },
-        input_akta_kelahiran() {
-            const uploadFile = document.getElementById("input_akta_kelahiran");
-            if (uploadFile.files[0].size > 2097152) {
-                alert("Ukuran file lebih dari 2MB");
-                uploadFile.value = "";
-            } else {
-                this.form.akta_lahir = uploadFile.files[0];
             }
         },
         input_kk() {
@@ -560,37 +352,14 @@ export default {
                 this.form.KTP = uploadFile.files[0];
             }
         },
-        input_pasfoto() {
-            const uploadFile = document.getElementById("input_pasfoto");
+        input_sertifikat() {
+            const uploadFile = document.getElementById("input_sertifikat");
             if (uploadFile.files[0].size > 2097152) {
                 alert("Ukuran file lebih dari 2MB");
                 uploadFile.value = "";
             } else {
-                this.form.pasfoto = uploadFile.files[0];
+                this.form.sertifikat = uploadFile.files[0];
             }
-        },
-        input_ktm() {
-            const uploadFile = document.getElementById("input_ktm");
-            if (uploadFile.files[0].size > 2097152) {
-                alert("Ukuran file lebih dari 2MB");
-                uploadFile.value = "";
-            } else {
-                this.form.KTM = uploadFile.files[0];
-            }
-        },
-        input_ijazah() {
-            const uploadFile = document.getElementById("input_ijazah");
-            if (uploadFile.files[0].size > 2097152) {
-                alert("Ukuran file lebih dari 2MB");
-                uploadFile.value = "";
-            } else {
-                this.form.ijazah = uploadFile.files[0];
-            }
-        },
-        get_klub_by_location() {
-            axios
-                .get(route("get.klub", props.auth.user.kota_kab))
-                .then((response) => (this.master.klub = response.data));
         },
     },
 };
