@@ -192,7 +192,7 @@ class WasitController extends Controller
         $pdf->SetTextColor(255, 255, 255);
 
         // Add the text to the new page
-        $pdf->Text(10, 18, strtoupper($wasit->klub) . ' / ' . $wasit->kota_kab);
+        $pdf->Text(10, 18, strtoupper("Wasit") . ' / ' . $wasit->kota_kab);
 
         $pdf->SetFont('Bahnschrift', 'B', 18);
         $pdf->SetTextColor(255, 255, 255);
@@ -220,7 +220,7 @@ class WasitController extends Controller
         $pdf->Text(35.2, 46.5, date('m/y', strtotime($wasit->expired)));
 
         // Path to the source image
-        $sourceImagePath = public_path('foto_anggota/' . $wasit->foto);
+        $sourceImagePath = public_path('foto_wasit/' . $wasit->foto);
 
         $image = new Imagick($sourceImagePath);
         $image->roundCorners(20, 20);
