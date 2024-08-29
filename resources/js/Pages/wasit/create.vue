@@ -238,7 +238,7 @@
                             <div class="form-control w-full">
                                 <label class="label gap-2 justify-start">
                                     <span class="label-text"
-                                        >Lisensi Wasit</span
+                                        >Lisensi</span
                                     >
                                     <span class="label-text-alt text-error"
                                         >*</span
@@ -249,16 +249,17 @@
                                     v-model="form.license"
                                 >
                                     <option disabled :value="null" selected>
-                                        Lisensi Wasit:
+                                        Pilih Lisensi:
                                     </option>
-                                    <option value="unlicensed">unlicensed</option>
+                                    <option value="C3">C3</option>
                                     <option value="C2">C2</option>
                                     <option value="C1">C1</option>
+                                    <option value="MC">MC</option>
                                 </select>
                                 <label class="label">
                                     <span
                                         class="label-text-alt text-error italic"
-                                        >*Pilih lisensi wasit</span
+                                        >*Pilih lisensi wasit/matchcommisioner</span
                                     >
                                 </label>
                             </div>
@@ -306,7 +307,7 @@ export default {
         btn_submit() {
             this.form.post(route("wasit.store"), {
                 onSuccess: () => {
-                    alert("Berhasil menambahkan data wasit!");
+                    alert("Berhasil menambahkan data wasit/matchcommisioner!");
                 },
             });
         },

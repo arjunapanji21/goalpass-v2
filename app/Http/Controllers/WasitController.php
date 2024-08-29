@@ -103,8 +103,11 @@ class WasitController extends Controller
             else if($data['license'] == 'C2'){
                 $license = "2";
             }
-            else{
-                $license = "9";
+            else if($data['license'] == 'C3'){
+                $license = "3";
+            }
+            else if($data['license'] == 'MC'){
+                $license = "0";
             }
             if(Wasit::where('kd_kota', $data['kd_kota'])->orderBy('kd_urutkota', 'desc')->first() != null){
                 $data['kd_urutkota'] = Wasit::where('kd_kota', $data['kd_kota'])->orderBy('kd_urutkota', 'desc')->first()->kd_urutkota + 1;
@@ -121,13 +124,23 @@ class WasitController extends Controller
             $data['tgl_rilis'] = date('Y-m-d H:i:s');
             $data['expired'] = date('Y-m-d H:i:s', strtotime('+2 years', strtotime($data['tgl_rilis'])));
             Wasit::create($data);
-            ActivityLog::create([
-                'ip_add' => $request->ip(),
-                'user' => auth()->user()->nama,
-                'role' => auth()->user()->role,
-                'activity' => "Menambahkan data wasit a.n. ".$data['nama']." kedalam database.",
-            ]);
+            if($license == "0"){
+                ActivityLog::create([
+                    'ip_add' => $request->ip(),
+                    'user' => auth()->user()->nama,
+                    'role' => auth()->user()->role,
+                    'activity' => "Menambahkan data matchcommisioner a.n. ".$data['nama']." kedalam database.",
+                ]);
+                return redirect(route('wasit.index'))->with('alert', "Data Matchcommisioner Berhasil Disimpan!");
+            }else{
+                ActivityLog::create([
+                    'ip_add' => $request->ip(),
+                    'user' => auth()->user()->nama,
+                    'role' => auth()->user()->role,
+                    'activity' => "Menambahkan data wasit a.n. ".$data['nama']." kedalam database.",
+                ]);
                 return redirect(route('wasit.index'))->with('alert', "Data Wasit Berhasil Disimpan!");
+            }
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -161,6 +174,10 @@ class WasitController extends Controller
             $existingPdfPath = public_path('template_kartu/wasit/1.pdf');
         } else if ($wasit->license == "C2") {
             $existingPdfPath = public_path('template_kartu/wasit/2.pdf');
+        } else if ($wasit->license == "C3") {
+            $existingPdfPath = public_path('template_kartu/wasit/3.pdf');
+        } else if ($wasit->license == "MC") {
+            $existingPdfPath = public_path('template_kartu/wasit/0.pdf');
         } 
 
         // Set the source file

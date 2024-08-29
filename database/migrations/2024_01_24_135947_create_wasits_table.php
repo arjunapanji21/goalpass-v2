@@ -30,7 +30,7 @@ class CreateWasitsTable extends Migration
             $table->string('KK')->nullable();
             $table->string('KTP')->nullable();
             $table->string('sertifikat')->nullable();
-            $table->enum('license', ['unlicensed', 'C3', 'C2', 'C1']);
+            $table->enum('license', ['unlicensed', 'C3', 'C2', 'C1', 'MC']);
             $table->timestamps();
             $table->softDeletes();
         });
